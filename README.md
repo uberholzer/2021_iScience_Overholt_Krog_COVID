@@ -1,7 +1,7 @@
 # 2021_iScience_Overholt_Krog_COVID
 Repository for "Dissecting the common and compartment-specific features of COVID-19 severity in the lung and periphery with single-cell resolution"
 
-Order for running scriptss:
+Order for running scripts:
 1.	main_int_harmony.R
 2.	main_int_clustering.R
 3.	subcluster_meyloid.R
@@ -26,4 +26,3 @@ Order for running scriptss:
 22.	printr.R for each study desired
 23.	ligands_broad.py
 24.	ligands_targeted.py
-
