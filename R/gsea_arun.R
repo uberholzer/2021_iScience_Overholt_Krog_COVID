@@ -34,12 +34,14 @@ prepare_ranked_list <- function(raw_list) {
     raw_list <- aggregate(.~Gene.name, FUN = mean, data = raw_list)
   }
   
-  # Do the actual ordering of the gene list. This will not affect the result I think, it is just for visualization purposes
-  ranked_list <- raw_list[order(raw_list$avg_log2FC, raw_list$ngLOG10p, decreasing = F),]
+  # Order the gene list (decreasing order)
+  # This will not affect the result since fgsea sorts the list itself--we just do this for visualization purposes
+  ranked_list <- raw_list[order(raw_list$avg_log2FC, raw_list$ngLOG10p, decreasing = T),]
   
   # omit rows with NA values
   ranked_list <- ranked_list[,c("Gene.name", "avg_log2FC")] # Note that the column you take, not the order, dictates the result
   ranked_list <- na.omit(ranked_list)
+  
   # turn the dataframe into a named vector
   ranked_list <- tibble::deframe(ranked_list)
   
@@ -49,7 +51,7 @@ prepare_ranked_list <- function(raw_list) {
   # the names of the vector are the genes, the values are the rank metric
   print(head(ranked_list))
   
-  # check ranks are from lowest to highest
+  # check ranks are from highest to lowest
   print(tail(unname(ranked_list)))
   
   return(ranked_list)
@@ -117,22 +119,22 @@ run_GSEA <- function(dataset,de_celltypes,groups1,groups2){
 
 dataset_arun <- "Arun_" # Enter the dataset header
 de_celltypes_arun  <- c(
-    "CD14 Mono",
-    "CD16 Mono",
-    "CD4 Naive T",
-    "CD4 Treg",
-    "CD8 Effector T",
-    "CD8 Naive T",
-    # "cDC1",
-    "cDC2",
-    "Inflammatory MP",
-    # "Intermediate Mono",
-    "Mature B",
-    "Neutrophil",
-    "NK",
-    "pDC",
-    "Plasma cell",
-    "Proliferating T"
+    # "CD14 Mono",
+    # "CD16 Mono",
+    "CD4 Naive T"
+    # "CD4 Treg",
+    # "CD8 Effector T",
+    # "CD8 Naive T",
+    # # "cDC1",
+    # "cDC2",
+    # "Inflammatory MP",
+    # # "Intermediate Mono",
+    # "Mature B",
+    # "Neutrophil",
+    # "NK",
+    # "pDC",
+    # "Plasma cell",
+    # "Proliferating T"
   )
 
 groups1_arun <- c("Severe","Mild") # Enter the test severity categories here (FC=group1/group2)
